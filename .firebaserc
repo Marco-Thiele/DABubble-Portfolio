@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "dabubble-37aeb": {
+      "hosting": {
+        "DABubble-Portfolio": [
+          "dabubble-37aeb"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "dabubble-37aeb"
+  }
+}

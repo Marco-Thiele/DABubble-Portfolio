@@ -111,9 +111,7 @@ export class SecondaryChatComponent {
     setInterval(() => {
       if (this.EmitOpenService.openThread) {
         this.i = this.sharedService.i;
-        // this.threadAnswersJson = this.sharedService.thread.answers;
         this.readThreadObject();
-        //this.selectedChannel = this.sharedService.selectedChannel;
       }
       this.EmitOpenService.openThread = false;
       setTimeout(() => {

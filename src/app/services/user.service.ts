@@ -46,6 +46,7 @@ export class UserService {
     this.userObject.photoURL = this.getPhoto();
     this.userObject.uid = this.getId();
     this.userObject.chat = [];
+    this.userObject.channel = ['Office-team']
   }
 
   getName() {

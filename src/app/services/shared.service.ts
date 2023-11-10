@@ -306,7 +306,7 @@ export class SharedService implements OnInit {
    * @returns the list of members
    */
   async getMembersFS() {
-    const querySnapshot = await getDocs(collection(this.firestore, 'members'));
+    const querySnapshot = await getDocs(collection(this.firestore, 'users'));
     this.members = querySnapshot.docs.map((doc) =>
       this.setMemberObject(doc.data(), doc.id)
     );
@@ -373,7 +373,7 @@ export class SharedService implements OnInit {
       imgProfil: obj.imgProfil || '',
       name: obj.name || '',
       type: obj.type || '',
-      channels: obj.channels || [],
+      channels: obj.channel || [],
     };
   }
 

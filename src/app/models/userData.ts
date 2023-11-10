@@ -4,6 +4,7 @@ export class userData {
   public photoURL: string = '';
   public uid: string = '';
   public chat: string[] = [];
+  public channel: string[] = [];
 
   public toJson() {
     return {
@@ -12,6 +13,7 @@ export class userData {
       photoURL: this.photoURL,
       uid: this.uid,
       chat: this.chat,
+      channel: this.channel,
     };
   }
 }

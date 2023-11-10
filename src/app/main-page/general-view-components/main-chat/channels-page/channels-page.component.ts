@@ -45,6 +45,7 @@ export class ChannelsPageComponent implements OnInit {
   openChannelContainer(channel: any) {
     this.EmitOpenService.openChannelEvent$.subscribe((channel: any) => {
       this.selectedChannel = channel;
+      console.log('channeldata', this.selectedChannel);
     });
   }
 
@@ -69,12 +70,16 @@ export class ChannelsPageComponent implements OnInit {
         const channelData = element.data();
         if (channelData.name === channel.name) {
           this.selectedChannel = channelData;
-          this.selectedChannel.id = channel.id;
+          this.selectedChannel.id = channel.id; 
         }
       });
     });
   }
 
+  
+  logItem(item: any) {
+    console.log(item);
+  }
   /**
    * Scrolls to the bottom of the chat
    */

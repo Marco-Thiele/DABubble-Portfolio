@@ -28,12 +28,11 @@ export class ChannelMembersComponent implements OnInit {
     private sharedService: SharedService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.members = data.members;
+    console.log('data', data);
+    
+    this.usermenbers = data.members;
     this.selectedChannel = data.channel;
     this.channelName = data.channelName;
-    console.log('members',this.members);
-    console.log('selectedChannel',this.selectedChannel);
-    this.filterImg()
   }
 
   ngOnInit(): void {}
@@ -44,33 +43,6 @@ export class ChannelMembersComponent implements OnInit {
   closeMembers() {
     this.dialogRef.close();
   }
-
-
-  async filterImg(){
-  return onSnapshot(this.getUsersFromFS(), (list: any) => {
-    this.usermenbers = [];
-    let i = 0
-    list.forEach((element: { data: () => any; } ) => {
-      const channelData = element.data();
-      
-      if (channelData.name === this.members[i]['name']) {
-        const user = {
-          name : channelData.name,
-          img : channelData.photoURL,
-        }
-        this.usermenbers.push(user)
-      }
-      i++
-    });
-    console.log('user',this.usermenbers);
-    
-  });
-
-  }
-
-getUsersFromFS(){
-  return collection(this.firestore, 'users');
-}
   
 
   /**

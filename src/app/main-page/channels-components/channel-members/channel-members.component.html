@@ -8,9 +8,9 @@
 
   <div class="channel-members-users">
     <div class="channel-members-cont">
-      <div class="channel-member" *ngFor="let member of members">
+      <div class="channel-member" *ngFor="let member of usermenbers">
         <div class="channel-photo">
-          <img [src]="member.imgProfil || member.profileImg" [alt]="member.name">
+          <img [src]="member.img">
           <div class="online"></div>
         </div>
         <span class="font400-normal">{{member.name}}</span>

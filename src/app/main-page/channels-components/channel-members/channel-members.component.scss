@@ -74,11 +74,12 @@
   cursor: pointer;
 
   .channel-photo {
-    background-image: url(../../../../assets/profil-img/profile_bild.svg);
-    background-size: cover;
-    height: 50px;
-    width: 50px;
+   img{
+    height: 35px;
+    width: 35px;
     border-radius: 30px;
+   }
+ 
     position: relative;
   }
 

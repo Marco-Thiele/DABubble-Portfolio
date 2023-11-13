@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, inject } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ChannelEditComponent } from 'src/app/main-page/channels-components/channel-edit/channel-edit.component';
 import { ChannelMembersComponent } from 'src/app/main-page/channels-components/channel-members/channel-members.component';
 import { AddChannelMembersComponent } from 'src/app/main-page/channels-components/add-channel-members/add-channel-members.component';
-import { Firestore, onSnapshot } from '@firebase/firestore';
+import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
 import { EmitOpenService } from 'src/app/services/emit-open.service';
+
 
 @Component({
   selector: 'app-channels-page',
@@ -18,6 +19,8 @@ export class ChannelsPageComponent implements OnInit {
   selectedChannel: any;
   members: any[] = [];
   autoScrollEnabled = true;
+  usermembers: any[] = [];
+  firestore: Firestore = inject(Firestore);
 
   constructor(
     private dialog: MatDialog,
@@ -25,6 +28,7 @@ export class ChannelsPageComponent implements OnInit {
     private EmitOpenService: EmitOpenService
   ) {
     this.openChannelContainer(this.selectedChannel);
+    this.filterImg();
   }
 
   ngOnInit(): void {}
@@ -45,6 +49,7 @@ export class ChannelsPageComponent implements OnInit {
   openChannelContainer(channel: any) {
     this.EmitOpenService.openChannelEvent$.subscribe((channel: any) => {
       this.selectedChannel = channel;
+      this.members = channel.members;
       console.log('channeldata', this.selectedChannel);
     });
   }
@@ -76,7 +81,42 @@ export class ChannelsPageComponent implements OnInit {
     });
   }
 
+
+  async filterImg(){
+    return onSnapshot(this.getUsersFromFS(), (list: any) => {
+      this.usermembers = [];
+      // let member;
+      let i = 0
+      list.forEach((element: { data: () => any; } ) => {
+        const channelData = element.data();
+        this.members.forEach(member => {
+          if(member['name'].includes('(Du)')){
+            member = member['name'].replace('(Du)','')
+            }else{
+              member = member['name']
+            }
+        if (channelData.name.includes(member)) {
+          const user = {
+            name : channelData.name,
+            img : channelData.photoURL,
+          }
+          this.usermembers.push(user)
+        }
+        i++
+      });
+    });
+      console.log('user',this.usermembers);
+      
+    });
   
+    }
+
+  
+    getUsersFromFS(){
+      return collection(this.firestore, 'users');
+    }
+
+
   logItem(item: any) {
     console.log(item);
   }
@@ -116,7 +156,7 @@ export class ChannelsPageComponent implements OnInit {
    * Shows the members component
    */
   showMembers() {
-    const members = this.selectedChannel.members;
+    const members = this.usermembers;
     const channel = this.selectedChannel;
     const channelName = this.selectedChannel.name;
     const dialogRef = this.dialog.open(ChannelMembersComponent, {
@@ -128,7 +168,7 @@ export class ChannelsPageComponent implements OnInit {
    * Shows the add members component
    */
   addMembers() {
-    const members = this.selectedChannel.members;
+    const members = this.usermembers;
     const dialogRef = this.dialog.open(AddChannelMembersComponent, {
       data: {
         selectedChannel: this.selectedChannel,

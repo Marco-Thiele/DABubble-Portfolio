@@ -28,7 +28,6 @@ export class ChannelsPageComponent implements OnInit {
     private EmitOpenService: EmitOpenService
   ) {
     this.openChannelContainer(this.selectedChannel);
-    this.filterImg();
   }
 
   ngOnInit(): void {}
@@ -50,7 +49,7 @@ export class ChannelsPageComponent implements OnInit {
     this.EmitOpenService.openChannelEvent$.subscribe((channel: any) => {
       this.selectedChannel = channel;
       this.members = channel.members;
-      console.log('channeldata', this.selectedChannel);
+      this.filterImg();
     });
   }
 
@@ -82,44 +81,54 @@ export class ChannelsPageComponent implements OnInit {
   }
 
 
+  /**
+   * Load the user img for the channel header 
+   * 
+   */
   async filterImg(){
     return onSnapshot(this.getUsersFromFS(), (list: any) => {
       this.usermembers = [];
-      // let member;
-      let i = 0
       list.forEach((element: { data: () => any; } ) => {
         const channelData = element.data();
-        this.members.forEach(member => {
-          if(member['name'].includes('(Du)')){
-            member = member['name'].replace('(Du)','')
-            }else{
-              member = member['name']
-            }
-        if (channelData.name.includes(member)) {
+        this.membersForEach(channelData)
+    });
+    });
+    }
+
+
+    /**
+     * Push names and images into an array that will be displayed
+     * 
+     * @param channelData Json from the backend
+     */
+    membersForEach(channelData:any){
+      this.members.forEach(member => {
+        if(member['name'].includes('(Du)')){
+          member = member['name'].replace('(Du)','')
+          }else
+            member = member['name']  
+      if (channelData.name.includes(member)) {
+        if (!this.usermembers.find(user => user.name === member)) {
           const user = {
             name : channelData.name,
             img : channelData.photoURL,
           }
           this.usermembers.push(user)
-        }
-        i++
-      });
+        }   
+      }
     });
-      console.log('user',this.usermembers);
-      
-    });
-  
     }
 
-  
+
+    /**
+     * It is the Ref to the firestore collection
+     * 
+     */
     getUsersFromFS(){
       return collection(this.firestore, 'users');
     }
 
 
-  logItem(item: any) {
-    console.log(item);
-  }
   /**
    * Scrolls to the bottom of the chat
    */

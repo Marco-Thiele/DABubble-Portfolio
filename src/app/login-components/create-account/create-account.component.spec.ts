@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateAccountComponent } from './create-account.component';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
 
 describe('CreateAccountComponent', () => {
   let component: CreateAccountComponent;
@@ -8,6 +11,10 @@ describe('CreateAccountComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideFirestore(() => getFirestore()),
+      ],
       declarations: [CreateAccountComponent]
     });
     fixture = TestBed.createComponent(CreateAccountComponent);

@@ -6,6 +6,9 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { PrincipalPageComponent } from './principal-page/principal-page.component';
+import { BoxToWriteComponent } from './box-to-write/box-to-write.component';
+import { FormsModule } from '@angular/forms';
 
 describe('MainChatComponent', () => {
   let component: MainChatComponent;
@@ -14,12 +17,16 @@ describe('MainChatComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+        FormsModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideFirestore(() => getFirestore()),
         provideAuth(() => getAuth()),
         provideDatabase(() => getDatabase()),
       ],
-      declarations: [MainChatComponent],
+      declarations: [
+        MainChatComponent,
+        PrincipalPageComponent,
+        BoxToWriteComponent,],
     });
     fixture = TestBed.createComponent(MainChatComponent);
     component = fixture.componentInstance;

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddChannelMembersComponent } from './add-channel-members.component';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -22,6 +22,7 @@ describe('AddChannelMembersComponent', () => {
       ],
       declarations: [AddChannelMembersComponent],
       providers: [
+        { provide: MAT_DIALOG_DATA, useValue: {} },
         {provide: MatDialogRef, useValue: {}},
     ]
     });

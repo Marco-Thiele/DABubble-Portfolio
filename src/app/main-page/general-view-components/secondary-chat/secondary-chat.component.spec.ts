@@ -6,6 +6,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
+import { SharedService } from 'src/app/services/shared.service';
 
 describe('SecondaryChatComponent', () => {
   let component: SecondaryChatComponent;
@@ -13,13 +14,16 @@ describe('SecondaryChatComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[
+      imports:[   
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideFirestore(() => getFirestore()),
         provideAuth(() => getAuth()),
         provideDatabase(() => getDatabase()),
       ],
-      declarations: [SecondaryChatComponent]
+      declarations: [
+        SecondaryChatComponent,
+        SharedService
+      ]
     });
     fixture = TestBed.createComponent(SecondaryChatComponent);
     component = fixture.componentInstance;

@@ -6,6 +6,8 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
+import { BoxToWriteComponent } from '../box-to-write/box-to-write.component';
+import { ChatContainComponent } from '../chat-contain/chat-contain.component';
 
 describe('PrivateChatPageComponent', () => {
   let component: PrivateChatPageComponent;
@@ -19,7 +21,11 @@ describe('PrivateChatPageComponent', () => {
         provideAuth(() => getAuth()),
         provideDatabase(() => getDatabase()),
       ],
-      declarations: [PrivateChatPageComponent]
+      declarations: [
+        PrivateChatPageComponent,
+        BoxToWriteComponent,
+        ChatContainComponent
+      ]
     });
     fixture = TestBed.createComponent(PrivateChatPageComponent);
     component = fixture.componentInstance;

@@ -6,6 +6,8 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
+import { BoxToWriteComponent } from '../box-to-write/box-to-write.component';
+import { FormsModule } from '@angular/forms';
 
 describe('PrincipalPageComponent', () => {
   let component: PrincipalPageComponent;
@@ -14,12 +16,16 @@ describe('PrincipalPageComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+        FormsModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideFirestore(() => getFirestore()),
         provideAuth(() => getAuth()),
         provideDatabase(() => getDatabase()),
       ],
-      declarations: [PrincipalPageComponent]
+      declarations: [
+        PrincipalPageComponent,
+        BoxToWriteComponent
+      ]
     });
     fixture = TestBed.createComponent(PrincipalPageComponent);
     component = fixture.componentInstance;

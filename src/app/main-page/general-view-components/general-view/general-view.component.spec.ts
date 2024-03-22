@@ -10,6 +10,7 @@ import { HeaderComponent } from '../header/header.component';
 import { MainChatComponent } from '../main-chat/main-chat.component';
 import { PrincipalPageComponent } from '../main-chat/principal-page/principal-page.component';
 import { BoxToWriteComponent } from '../main-chat/box-to-write/box-to-write.component';
+import { FormsModule } from '@angular/forms';
 
 describe('GeneralViewComponent', () => {
   let component: GeneralViewComponent;
@@ -18,6 +19,7 @@ describe('GeneralViewComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+        FormsModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideFirestore(() => getFirestore()),
         provideAuth(() => getAuth()),
